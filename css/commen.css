@@ -1,0 +1,10 @@
+.main{
+	margin: 0 auto;
+	max-width:375px;
+}
+body{
+    height: 100%;
+    overflow: auto;
+    background: #1C1920;
+}
+
