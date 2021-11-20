@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      body {
+        background-color: gray;
+      }
+      #box {
+        background-color: aqua;
+      }
+      #box,
+      #box1 {
+        width: 400px;
+        height: 400px;
+        color: #ffffff;
+        margin: 0 auto;
+        font-size: 80px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="box">1</div>
+    <div id="box1">1</div>
+    <script>
+      /**
+       * 节流：在n秒内触发多次，等待n秒之后再执行
+       * 一段时间内执行多次，每隔一段时间之后才会被触发：例子：123会每移入一次就会执行一次，但是只有等到执行的动作。就算是你触发的间隔小于2秒，但是执行的间隔时长超过了5秒也还是会被执行的。
+       * 顺便提一嘴：settomeout和setinterval的区别：settimeout等待多少秒之后执行一次。setinterval是每隔多少秒执行一次，相当于是个定时器。
+       */
+      let box = document.getElementById("box");
+      box.onmouseover = throttle(handleMouseOver, 2000);
+      function handleMouseOver() {
+        console.log(234);
+        box.innerHTML = parseInt(box.innerText) + 1;
+      }
+      function throttle(func, wait) {
+        var context, args;
+        var previous = 0;
+        return function () {
+          console.log(123);
+          var now = +new Date();
+          context = this;
+          args = arguments;
+          if (now - previous > wait) {
+            func.apply(context, args);
+            previous = now;
+          }
+        };
+      }
+      // setTimeout(() => {
+      //   console.log(111);
+      // }, 1000);
+      // //定时器
+      // setInterval(() => {
+      //   console.log(222);
+      // }, 3000);
+    </script>
+  </body>
+</html>

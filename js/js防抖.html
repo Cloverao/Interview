@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      body {
+        background-color: gray;
+      }
+      #box,
+      #box1 {
+        width: 400px;
+        height: 400px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: #ffffff;
+        margin: 0 auto;
+        font-size: 80px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="box">1</div>
+    <div id="box1">1</div>
+    <script>
+      /**
+       * 防抖：在n秒内触发多次，等待n秒之后再执行
+       * 一段时间内执行多次，每隔一段时间之后才会被触发：例子：123会没移入一次就会执行一次，但是只有等到执行的动作超过2秒之后才会打印234，234里面的代码就是防抖要执行的代码.
+       * 1、不指定this无法对各自的dom设置不同的颜色操作
+       * 2、需要处理执行函数中的参数和this指向问题
+       */
+      let count = 1;
+      let box = document.getElementById("box");
+      let box1 = document.getElementById("box1");
+      //debounce相当于是鼠标移上去的时候执行的函数，但是如果带上()就是执行函数，因此我们需要让debounce函数返回一个函数，以供执行真正的操作
+      box.onmouseover = debounce(handleMouseOver, 2000);
+      box1.onmouseover = debounce(handleMouseOver1, 2000);
+      function handleMouseOver(e) {
+        console.log(234);
+        this.style.color = "red";
+        box.innerHTML = parseInt(box.innerText) + 1;
+      }
+      function handleMouseOver1(e) {
+        this.style.color = "green";
+
+        box1.innerHTML = parseInt(box1.innerText) + 2;
+      }
+
+      //防抖函数
+      function debounce(fn, await) {
+        //每触发一次事件就++一次，每隔await秒打印一次
+        //每扫过一次应当按照上一次的count值来进行++
+        let timer = null;
+        return function () {
+          let args = arguments;
+          let context = this;
+          clearTimeout(timer);
+          console.log(123);
+          timer = setTimeout(function () {
+            fn.call(context, ...args);
+          }, await);
+        };
+      }
+    </script>
+  </body>
+</html>
