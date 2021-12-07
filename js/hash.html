@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      #hello {
+        color: aqua;
+      }
+
+      #world {
+        color: blueviolet;
+      }
+      #container {
+        display: flex;
+        line-height: 20px;
+        font-size: 16px;
+      }
+    </style>
+  </head>
+  <body>
+    <button onclick="handleClick('hello')">hello</button>
+    <button onclick="handleClick('world')">world</button>
+    <div id="container"></div>
+    <script>
+      let routes = ["hello", "world"];
+      //保存当前hash
+      let currentTab;
+      //初始化展示hello页面
+      createElement("hello");
+      //点击切换页面
+      function handleClick(name) {
+        window.location.hash = name;
+        currentTab = name;
+      }
+
+      //获取到地址的hash，获取的地址不准window.location.hash是没有变化之前的，如果window.location.hash和hashchange中的内容获取的不一致，以hashchange为准
+      function getHash(url = window.location.hash) {
+        //使用参数默认值
+        let str = url.substr(1);
+        if (str) return str;
+      }
+
+      //监听hash改变事件-路由改变后页面变化
+      window.addEventListener("hashchange", function (e) {
+        let currentHash = e.newURL.split("#")[1];
+        let widnowHash = getHash();
+        //如果两个hash都不存在则return
+        if (!widnowHash && widnowHash) return;
+        //容错处理，优先取hashchange事件中的hash
+        currentHash ? (currentTab = currentHash) : (currentTab = getHash());
+        //检测路由改变后，更新页面
+        createElement(currentTab);
+      });
+
+      //模拟单页应用替换整个#app内内容的操作
+      function createElement(currentTab) {
+        let container = document.getElementById("container");
+        //每次先清空container中的内容
+        container.innerHTML = "";
+        //创建标签
+        let ele = document.createElement("div");
+        ele.setAttribute("id", currentTab);
+        if (currentTab === "hello") {
+          ele.innerText = "this is hello page!!!";
+        } else if (currentTab === "world") {
+          ele.innerText = "this is world page!!!";
+        }
+        //将标签插入到container中
+        container.appendChild(ele);
+      }
+    </script>
+  </body>
+</html>
