@@ -1,0 +1,14 @@
+运行webpack 命令报错webpack : 无法将“webpack”项识别为 cmdlet、函数、脚本文件或可运行程序的名称。请检查名称的拼写，如果包括路径，请确保路 径正确，然后再试一次。
+使用：node_modules/.bin/webpack  使用指定包解析
+或者再package.json中配置scripts->dev:'webpack' 或者:start:'webpack'  使用npm 引导方式
+因为没有注册到全局变量中的缘故
+
+ValidationError: Invalid options object. CSS Loader has been initialized using an options object that does not match the API schema.
+options: {
+          minimize: true //使用该种方式也不管用
+        }
+去掉css-loader?minimize属性，webpack版本的问题，minimize这个属性已经被取消了。
+
+(node:212476) DeprecationWarning: Tapable.plugin is deprecated. Use new API on `.hooks` instead
+原因是 Since webpack v4 the extract-text-webpack-plugin should not be used for css. Use mini-css-extract-plugininstead.
+使用：mini-css-extract-plugininstead代替
