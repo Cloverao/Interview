@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <!-- querySelector
+      1.ID为数字：会报错，返回html元素
+     -->
+    <!-- <div id="1">1</div>
+    <div id="2">2</div> -->
+    <!--2.匹配多个元素-->
+    <div id="a" class="a">1</div>
+    <div id="a" class="a">2</div>
+    <div id="b">3</div>
+
+    <script>
+      // 1.第一个字符为数字
+      // let selList = document.querySelectorAll("#1");
+      // let getList = document.getElementById("1");
+      // console.log(selList, getList);
+      // 2.匹配多个元素
+      // let selList = document.querySelectorAll("#a");
+      // let getList = document.getElementById("a");
+      // let classList = document.getElementsByClassName("a");
+      // console.log(selList, getList, classList);
+      //3.查找性能上
+      console.time("querySelectorAll");
+      for (let i = 0; i < 1000; i++) {
+        document.querySelectorAll("li");
+      }
+      console.timeEnd("querySelectorAll");
+      console.time("getElementsByTagName");
+      for (let i = 0; i < 1000; i++) {
+        document.getElementsByTagName("li");
+      }
+      console.timeEnd("getElementsByTagName");
+    </script>
+  </body>
+</html>
