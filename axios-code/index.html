@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+		<script src="./index.js"></script>
+		<script>
+			var axios = createInstance(defaults)
+			let res = axios({
+				// baseURL:'http://127.0.0.1:8848/',
+				method:"get",
+				url:"es6/axios-code/test.json",
+			})
+			// http://127.0.0.1:8848/es6/axios-code/test.json
+			// http://127.0.0.1:8848/test.json
+			fetch('./test.json')
+			  .then(response => response.json())
+			  .then(data => console.log(data));
+			console.log(res)
+		</script>
+	</body>
+</html>
